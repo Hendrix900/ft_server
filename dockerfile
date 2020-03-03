@@ -25,3 +25,4 @@ EXPOSE 8080
 #       Borra la imagen indicada.
 # docker images te lista todas las imagenes descargadas.
 # docker run --name [Nombre del contenedor] le damos nombre al contenedor. 
+# Ctrl + q + p =  SAlir de un contenedor sin detenerlo.
