@@ -26,3 +26,4 @@ EXPOSE 8080
 # docker images te lista todas las imagenes descargadas.
 # docker run --name [Nombre del contenedor] le damos nombre al contenedor. 
 # Ctrl + q + p =  SAlir de un contenedor sin detenerlo.
+# docker attach te permite entrar en un contenedor que se encuentra ejecutandose.
