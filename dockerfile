@@ -23,3 +23,5 @@ EXPOSE 8080
 
 # docker rm [Nombre o ID] Borra el contenedor indicado.
 #       Borra la imagen indicada.
+# docker images te lista todas las imagenes descargadas.
+# docker run --name [Nombre del contenedor] le damos nombre al contenedor. 
