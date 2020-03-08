@@ -2,23 +2,55 @@
 FROM debian:buster
 
 # Autor del dockerfile.
-MAINTAINER Carlos Castillo <ccastill>
+#MAINTAINER Carlos Castillo <ccastill>
 
 # Versión de mi Dockerfile.
-LABEL Version = "1.0"
+#LABEL Version = "1.0"
 
-# Introducimos todos los cambios que queremos se ejecuten.
+# Actualizamos e instalamos los componentes.
 # apt update refresca los repositorios de software.
 # apt upgrade actualiza el sistema completamente.
-
-RUN apt update && apt upgrade && \ 
-    apt install -y nginx mariadb-server php-fpm php-mysql php-mbstring openssl wget
-
+RUN apt update && \
+	apt -y upgrade && \
+	apt install -y nginx \
+	php-mbstring php-fpm php-mysql \
+	mariadb-server \
+	openssl
+		
+# Copiamos los archivos de nuestro directorio local al servidor.
 COPY /srcs/wordpress /var/www/html/wordpress/
-COPY /srcs/phpMyAdmin /var/www/html/phpMyAdmin/
+COPY /srcs/phpMyAdmin /var/www/html/phpmyadmin/
+COPY /srcs/default /etc/nginx/sites-available/
+COPY /srcs/init.sql /tmp/
+COPY /srcs/wordpress.sql /tmp/
+COPY /srcs/self-signed.conf /etc/nginx/snippets/
+COPY /srcs/ssl-params.conf /etc/nginx/snippets/
+COPY /srcs/index.html /var/www/html/
+
+# Con chown cambiamos el propietario:grupo de manera recursiva (-R) en todas las carpetas y subcarpetas de un directorio.
+# Con chmod cambiamos los permisos para el usuario/grupo/otros. Indicandolo en octal 755.
+RUN	chown -R www-data:www-data /var/www/* && \
+	chmod -R 755 /var/www/*
+
+# Iniciamos MySql y asignamos el usuario como 'root' y el password que pasamos en init.sql
+# Realizamos la misma operación para wordpress
+RUN service mysql start && \
+	mysql -u root --password= < /tmp/init.sql && \
+	mysql wordpress -u root --password= < /tmp/wordpress.sql
 
 
-EXPOSE 8080
+#SSl
+RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+	-subj "/C=SP/ST=Spain/L=Madrid/O=42Madrid/CN=localhost" \
+	-keyout /etc/ssl/private/nginx-selfsigned.key \
+	-out /etc/ssl/certs/nginx-selfsigned.crt && \
+	openssl dhparam -out /etc/nginx/dhparam.pem 1024
+
+#Ejecutables del contenedor
+CMD service nginx start && \
+	service php7.3-fpm start && \
+	service mysql start && \
+	bash
 
 #------Comandos----
 # docker images te lista todas las imagenes descargadas.
@@ -29,7 +61,7 @@ EXPOSE 8080
 # docker stop [Nombre del contenedor] Detiene el contenedor indicado.
 # docker build -t [nombre que queramos dar a la imagen] [Ruta] 
 # La -t nos permite añadir un nombre a la imagen que vamos a crear. 
-# Ejemplo para ejecutar una imagen docker run -p 80:80 -p 443:443 -it [nombre de la imagen]
+# Ejemplo para ejecutar una imagen z [nombre de la imagen]
 # -p indica los puertos 
 # -it Sirve para que se ejecute en el shell, mostrandose los procesos y teniendo acceso al servidor.
 
@@ -44,6 +76,4 @@ EXPOSE 8080
 # -d = Arrancar el servidor en el background. 
 # -v Especifica que estamos linkeando un volumen
 # La parte de la izquierda de los : es la localización en nuestro ordenador.
-# LA parte de la derecha de los : es la localización de nuestro contenedor.
-
-#
+# La parte de la derecha de los : es la localización de nuestro contenedor.
