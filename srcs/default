@@ -21,13 +21,11 @@ server
 
 	server_name localhost;
 
-	#si no existe pagina, devuelve 404: not found:
 	location /
 	{
 		try_files $uri $uri/ =404;
 	}
 
-	#para que el servidor interprete php:
 	location ~ \.php$
 	{
 		include snippets/fastcgi-php.conf;
