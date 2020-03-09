@@ -1,11 +1,11 @@
-# La imagen queremos que cargue.
+# La imagen que queremos que cargue.
 FROM debian:buster
 
 # Autor del dockerfile.
-#MAINTAINER Carlos Castillo <ccastill>
+MAINTAINER Carlos Castillo <ccastill>
 
 # Versión de mi Dockerfile.
-#LABEL Version = "1.0"
+LABEL Version = "1.0"
 
 # Actualizamos e instalamos los componentes.
 # apt update refresca los repositorios de software.
