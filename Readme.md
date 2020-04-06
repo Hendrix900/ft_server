@@ -23,9 +23,9 @@ ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker 
 5) Para acceder introducimos localhost en la barra de direcciones
 
 
-**Más información**:
+**MÁS INFORMACIÓN**:
 
-Carpeta Documentation
+[Carpeta Documentation](ft_server/Documentation/)
 
 
 
