@@ -25,7 +25,7 @@ ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker 
 
 **MÁS INFORMACIÓN**:
 
-[Documentation](ft_server/Documentation)
+[Documentation](ft_server/Documentation/.)
 
 
 
