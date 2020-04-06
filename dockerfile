@@ -8,9 +8,7 @@ MAINTAINER Carlos Castillo <ccastill>
 LABEL Version = "1.0"
 
 # Actualizamos e instalamos los componentes.
-# apt update refresca los rephp-mysql \
-	mariadb-server \
-	opensslositorios de software.
+# apt update refresca los repositorios de software.
 # apt upgrade actualiza el sistema completamente.
 # apt install llevará a cabo la instalación.
 RUN apt update && \
