@@ -1,4 +1,4 @@
-ft_server (EN)
+# ft_server (EN)
 --
 We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpress and MySQL running.
 
@@ -10,11 +10,11 @@ We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpre
 
 3) We will create an image from the dockerfile:
 
-  `docker build -t [name we want to give the image] [path where the dockerfile is]`
+   `docker build -t [name we want to give the image] [path where the dockerfile is]`
 
 4) We will run the image:
 
-  `docker run -p 80:80 -p 443: 443 -it [name the image]`
+   `docker run -p 80:80 -p 443: 443 -it [name the image]`
 
 5) To access we introduce localhost in the address bar
 
@@ -22,7 +22,7 @@ We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpre
 
 [Documentation](/Documentation)
 
-ft_server (ES)
+# ft_server (ES)
 --
 ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker donde se estarán ejecutando PhPMyAdmin, Wordpress y MySQL.
 
