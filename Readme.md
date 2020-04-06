@@ -1,5 +1,4 @@
 # ft_server (EN)
---
 
 We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpress and MySQL running.
 
@@ -24,7 +23,6 @@ We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpre
 [Documentation](/Documentation)
 
 # ft_server (ES)
---
 
 ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker donde se estarán ejecutando PhPMyAdmin, Wordpress y MySQL.
 
