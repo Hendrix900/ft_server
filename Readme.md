@@ -8,17 +8,19 @@ ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker 
 
 **INSTRUCCIONES**:
 
-1) Descargaremos este repositorio
+1) Instalaremos docker
 
-2) Crearemos una imagen a partir del dockerfile:
+2) Descargaremos este repositorio
 
-**docker build -t [nombre que queramos dar a la imagen] [ruta donde se encuentre el dockerfile]**
+3) Crearemos una imagen a partir del dockerfile:
 
-3) Ejecutaremos la imagen:
+   "docker build -t [nombre que queramos dar a la imagen] [ruta donde se encuentre el dockerfile]"
 
-**docker run -p 80:80 -p 443:443 -it [nombre la imagen]**
+4) Ejecutaremos la imagen:
 
-4) Para acceder introducimos localhost en la barra de direcciones
+   "docker run -p 80:80 -p 443:443 -it [nombre la imagen]"
+
+5) Para acceder introducimos localhost en la barra de direcciones
 
 
 Más información:1
