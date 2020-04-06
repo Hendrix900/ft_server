@@ -8,8 +8,11 @@ MAINTAINER Carlos Castillo <ccastill>
 LABEL Version = "1.0"
 
 # Actualizamos e instalamos los componentes.
-# apt update refresca los repositorios de software.
+# apt update refresca los rephp-mysql \
+	mariadb-server \
+	opensslositorios de software.
 # apt upgrade actualiza el sistema completamente.
+# apt install llevará a cabo la instalación.
 RUN apt update && \
 	apt -y upgrade && \
 	apt install -y nginx \
@@ -51,8 +54,3 @@ CMD service nginx start && \
 	service php7.3-fpm start && \
 	service mysql start && \
 	bash
-
-# docker rm [Nombre o ID] Borra el contenedor indicado.
-# docker image rm [Nombre] borra la imagen indicada.
-# Añadiendo el flag --name [Nombre del contenedor] le damos nombre al contenedor. 
-# docker attach te permite entrar en un contenedor que se encuentra ejecutandose.

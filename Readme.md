@@ -14,7 +14,7 @@ We will create a Nginx server inside a docker container with PhPMyAdmin, Wordpre
 
 4) We will run the image:
 
-   `docker run -p 80:80 -p 443: 443 -it [name the image]`
+   `docker run -p 80:80 -p 443: 443 -it [image name]`
 
 5) To access we introduce localhost in the address bar
 
@@ -38,7 +38,7 @@ ft_server nos permitirá crear un servidor Nginx dentro de un contenedor docker 
 
 4) Ejecutaremos la imagen:
 
-   `docker run -p 80:80 -p 443:443 -it [nombre la imagen]`
+   `docker run -p 80:80 -p 443:443 -it [nombre de la imagen]`
 
 5) Para acceder introducimos localhost en la barra de direcciones
 
