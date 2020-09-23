@@ -11,19 +11,27 @@ LABEL Version = "1.0"
 # apt update refresca los repositorios de software.
 # apt upgrade actualiza el sistema completamente.
 # apt install llevará a cabo la instalación.
-RUN apt update && \
-	apt -y upgrade && \
-	apt install -y nginx \
+RUN apt-get -y update && apt-get -y upgrade && \
+	apt-get install -y nginx \
 	php-mbstring php-fpm php-mysql \
 	mariadb-server \
-	openssl
-		
+ wget openssl \
+ && wget https://es.wordpress.org/wordpress-latest-es_ES.tar.gz \
+ && tar -xzvf wordpress-latest-es_ES.tar.gz \
+ && mv wordpress /var/www/html \
+ && rm -rf wordpress-latest-es_ES.tar.gz \
+ && wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz \
+ && tar -xzvf phpMyAdmin-5.0.2-all-languages.tar.gz \
+ && mv phpMyAdmin-5.0.2-all-languages /var/www/html/phpmyadmin \
+ && rm -rf phpMyAdmin-5.0.2-all-languages.tar.gz 
+
 # Copiamos los archivos de nuestro directorio local al servidor.
-COPY /srcs/wordpress /var/www/html/wordpress/
-COPY /srcs/phpMyAdmin /var/www/html/phpmyadmin/
 COPY /srcs/default /etc/nginx/sites-available/
 COPY /srcs/init.sql /tmp/
+COPY /srcs/wp-config.php /var/www/html/wordpress
 COPY /srcs/wordpress.sql /tmp/
+COPY /srcs/header.jpg   /var/www/html/wordpress/wp-content/themes/twentyseventeen/assets/images/
+COPY /srcs/config.inc.php /var/www/html/phpmyadmin
 COPY /srcs/self-signed.conf /etc/nginx/snippets/
 COPY /srcs/ssl-params.conf /etc/nginx/snippets/
 COPY /srcs/index.html /var/www/html/
@@ -52,3 +60,5 @@ CMD service nginx start && \
 	service php7.3-fpm start && \
 	service mysql start && \
 	bash
+
+EXPOSE 80 443
