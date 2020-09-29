@@ -7,6 +7,9 @@ MAINTAINER Carlos Castillo <ccastill>
 # Versión de mi Dockerfile.
 LABEL Version = "1.0"
 
+# Variable para modificar el autoindex a través de un script.
+ENV AUTOINDEX="on"
+
 # Actualizamos e instalamos los componentes.
 # apt update refresca los repositorios de software.
 # apt upgrade actualiza el sistema completamente.
@@ -26,7 +29,10 @@ RUN apt-get -y update && apt-get -y upgrade && \
  && rm -rf phpMyAdmin-5.0.2-all-languages.tar.gz 
 
 # Copiamos los archivos de nuestro directorio local al servidor.
-COPY /srcs/default /etc/nginx/sites-available/
+COPY /srcs/change_autoindex.sh /
+COPY /srcs/default_aut_off /tmp
+COPY /srcs/nginx /tmp
+COPY /srcs/nginx /etc/nginx/sites-available/
 COPY /srcs/init.sql /tmp/
 COPY /srcs/wp-config.php /var/www/html/wordpress
 COPY /srcs/wordpress.sql /tmp/
@@ -38,10 +44,14 @@ COPY /srcs/index.html /var/www/html/
 
 # Con chown cambiamos el propietario:grupo de manera recursiva (-R) en todas las carpetas y subcarpetas de un directorio.
 # Con chmod cambiamos los permisos para el usuario/grupo/otros. Indicandolo en octal 755.
-RUN	chown -R www-data:www-data /var/www/* && \
+RUN	rm -rf /etc/nginx/sites-available/default && \
+	rm -f /var/www/html/index.nginx-debian.html && \
+	rm -rf /etc/nginx/sites-enabled/default && \
+	ln -sf /etc/nginx/sites-available/nginx /etc/nginx/sites-enabled/ && \
+	chown -R www-data:www-data /var/www/* && \
 	chmod -R 755 /var/www/*
 
-# Iniciamos MySql y asignamos el usuario como 'root' y el password que pasamos en init.sql
+# Iniciamos MySql y creamos una base de datos y usuario init.sql
 # Realizamos la misma operación para wordpress
 RUN service mysql start && \
 	mysql -u root --password= < /tmp/init.sql && \
